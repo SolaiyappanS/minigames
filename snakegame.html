@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Snake</title>
+        <style>
+            i {
+                padding: 0px;
+                color: cyan;
+            }
+            body {
+                background-color: #222;
+                color: #ccc;
+                font-size: 25px;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+<body>
+    <center>
+        <h4>You can also use navigation arrow keys (for PC users)</h4>
+        <h3>Score: <span class="score">0</span></h3>
+        <canvas id="gc" width="300" height="300" onclick="pause()" style="border:2px solid #ccc; display: block; margin: 0 auto;"></canvas><br>
+
+        <a onclick="up()"><i class="fa fa-arrow-circle-up" style="font-size:60px;"></i></a><br>
+        <a onclick="left()"><i class="fa fa-arrow-circle-left" style="font-size:60px;"></i></a>
+        <i class="fa fa-circle" style="font-size:60px; visibility: hidden;"></i>
+        <a onclick="right()"><i class="fa fa-arrow-circle-right" style="font-size:60px; "></i></a><br>
+        <a onclick="down()"><i class="fa fa-arrow-circle-down" style="font-size:60px; "></i></a>
+    </center>
+
+</body>
+<script>
+
+
+var canv=document.getElementById("gc");
+
+var ctx=canv.getContext("2d");
+
+document.addEventListener("keydown",keyPush);
+document.addEventListener("keyup",keyPull);
+
+var pushkey = false;
+
+setInterval(game,200);
+
+var px=10, py=10;
+
+var gs=15, tc=20;
+
+var ax=15, ay=15;
+
+var xv=0, yv=0;
+
+var trail=[];
+
+var tail = 3;
+
+document.querySelector( '.score' ).innerHTML = 0;
+
+var xaxis = true;
+
+var moving = true;
+
+function game() {
+    if(moving){
+
+        px+=xv;
+
+        py+=yv;
+
+        if(px<0) {
+
+            px= tc-1;
+
+        }
+
+        if(px>tc-1) {
+
+            px= 0;
+
+        }
+
+        if(py<0) {
+
+            py= tc-1;
+
+        }
+
+        if(py>tc-1) {
+
+            py= 0;
+
+        }
+        ctx.fillStyle="#222";
+        ctx.fillRect(0,0,canv.width,canv.height);
+        ctx.fillStyle="cyan";
+
+        for(var i=0;i<trail.length;i++) {
+
+            ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
+
+            if(trail[i].x==px && trail[i].y==py) {
+
+                tail = 3;addhit();
+
+            }
+
+        }
+
+        trail.push({x:px,y:py});
+
+        while(trail.length>tail) {
+
+            trail.shift();
+
+        }
+
+    
+
+        if(ax==px && ay==py) {
+
+            tail++;addhit();
+
+            ax=Math.floor(Math.random()*tc);
+
+            ay=Math.floor(Math.random()*tc);
+
+        }
+
+        ctx.fillStyle="goldenrod";
+
+        ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+
+    }
+}
+
+function keyPush(evt) {
+
+switch(evt.keyCode) {
+
+    case 37: {left(); pushkey = true;}
+        break;
+
+    case 38: {up(); pushkey = true;}
+        break;
+
+    case 39: {right(); pushkey = true;}
+        break;
+
+    case 40: {down(); pushkey = true;}
+        break;
+
+}
+}
+function keyPull(evt) {
+
+switch(evt.keyCode) {
+
+    case 37: pushkey = false;
+        break;
+
+    case 38: pushkey = false;
+        break;
+
+    case 39: pushkey = false;
+        break;
+
+    case 40: pushkey = false;
+        break;
+
+}
+
+}
+function pause(){
+    moving = !moving;
+}
+function addhit(){
+    document.querySelector( '.score' ).innerHTML = tail-3;
+}
+function up(){
+    if(!xaxis && moving && !pushkey){
+        xv=0;yv=-1;
+        xaxis = true;
+    }
+}
+function down(){
+    if(!xaxis && moving && !pushkey){
+        xv=0;yv=1;
+        xaxis = true;
+    }
+}
+function left(){
+    if(xaxis && moving && !pushkey){
+        xv=-1;yv=0;
+        xaxis = false;
+    }
+}
+function right(){
+    if(xaxis && moving && !pushkey){
+        xv=1;yv=0;
+        xaxis = false;
+    }
+}
+</script>
+</html>
