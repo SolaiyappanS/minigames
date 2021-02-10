@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <title>stacktower</title>
+            <style>
+                body {
+                    background-color: #222;
+                    color: #ccc;
+                }
+                canvas {
+                    background: #222;
+                }
+                button {
+                    width: 120px;
+                    height: 40px;
+                    text-align: center;
+                    font-size: 20px;
+                    font-weight: bolder;
+                }
+                
+            </style>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+            <center>
+                <br><br>
+                <audio id="clearsound" src="sound/pop.ogg" preload="auto"></audio>
+                <canvas onclick="canvasclick()" width='300%' height='400%' style="border:5px solid #ccc;"></canvas>
+            </center>
+
+        <script>
+            var firsttime = true;
+            var COLS = 15, ROWS = 20;
+            var board = [];
+            var interval;
+            interval = setInterval( startscreen);
+            var intervalRender;
+            var current; // current moving shape
+            var currentX, currentY; // position of current shape
+            var freezed; // is current shape settled on the board?
+            var hits = 0;
+            var free = false;
+            var empty = false;
+            var origin = 10;
+            var max = origin;
+            var perfect = false;
+            var shapes = new Array(max);
+            shapes[setAll] = 1;
+            
+            Array.prototype.setAll = function(v) {
+                var i, n = this.length;
+                for (i = 0; i < n; ++i) {
+                    this[i] = v;
+                }
+            };
+
+            // creates a new 4x4 shape in global variable 'current'
+            // 4x4 so as to cover the size when the shape is rotated
+            function newShape() {
+               
+                var shape = shapes; // maintain id for color filling
+
+                current = [];
+                for ( var y = 0; y < 1; ++y ) {
+                    current[ y ] = [];
+                    for ( var x = 0; x < max; ++x ) {
+                        var i = max * y + x;
+                        current[ y ][ x ] = 1;
+                    }
+                }
+                
+                // new shape starts to move
+                freezed = false;
+                // position where the shape will evolve
+                currentX = 0;
+                if(hits<10) currentY = ROWS-hits-1;
+                else currentY = 9;
+            }
+
+            // clears the board
+            function init() {
+                for ( var y = 0; y < ROWS; ++y ) {
+                    board[ y ] = [];
+                    for ( var x = 0; x < COLS; ++x ) {
+                        board[ y ][ x ] = 0;
+                    }
+                }
+            }
+
+            // keep the element moving down, creating new shapes and clearing lines
+            function tick() {
+                if ( valid(1) && !free ) {
+                    ++currentX;
+                }
+                else if ( valid(-1) ) {
+                    free = true;
+                    --currentX;
+                }
+                else free = false;
+                // if the element settled
+            }
+            function again() {
+                    freeze();
+                    clearLines();
+                    if (max<1 && empty) {
+                        clearAllIntervals();
+                        GameOver();
+                    }
+                    else {
+                        hits++;
+                        newShape();
+                    }
+                }
+
+            // stop shape at its position and fix it to board
+            function freeze() {
+                for ( var y = 0; y < 1; ++y ) {
+                    for ( var x = 0; x < max; ++x ) {
+                            board[ y + currentY ][ x + currentX ] = 1;
+                    }
+                }
+                freezed = true;
+            }
+
+            // check if any lines are filled and clear them
+            function clearLines() {
+                perfect = true;
+                for ( var y = ROWS - 2; y >= 0; --y ) {
+                    for ( var x = 0; x < COLS; ++x ) {
+                        if ( board[ y ][ x ] == 1 && board[ y + 1 ][ x ] == 0 ) {
+                            --max;
+                            perfect = false;
+                            board[ y ][ x ] = 0;
+                        }
+                    }
+                }
+                for ( var x = 0; x < COLS; ++x ) {
+                    empty= true;
+                    if ( board[ currentY ][ x ] == 1 ) {
+                            empty= false; break;
+                    }
+                }
+                if (hits >= 10) {
+                    for ( var y = ROWS-1; y > 0; --y ) {
+                        for ( var x = 0; x < COLS; ++x ) {
+                            board[ y ][ x ] = board[ y - 1 ][ x ];
+                        }
+                    }
+                    ++y;
+                }
+            }
+
+            function keyPress( key ) {
+                if ( key == 'drop' && max>0) again();
+            }
+
+            function GameOver(){
+                firsttime = true;
+                ctx.clearRect( 0, 50, W, 80 );
+                ctx.fillStyle = 'gold';
+                ctx.font = "40px";
+                ctx.fillText("GAME OVER", 60, 90);
+                ctx.fillStyle = 'cyan';
+                ctx.font = "15px Arial";
+                ctx.fillText("CLICK ANYWHERE IN THE SCREEN", 20, 125);
+                ctx.fillText("TO RESTART", 100, 150);
+            }
+
+            function startscreen() {
+                ctx.clearRect( 0, 0, W, H );
+                ctx.fillStyle = 'goldenrod';
+                ctx.font = "25px Arial Red";
+                ctx.fillText("WELCOME TO", 65, 125);
+                ctx.fillText("STACK TOWER", 60, 158);
+                ctx.fillStyle = 'cyan';
+                ctx.font = "25px Arial Red";
+                ctx.fillText("CLICK ANYWHERE", 40, 215);
+                ctx.fillText("IN THE SCREEN", 58, 248);
+                ctx.fillText("TO START", 93, 281);
+            }
+
+            // checks if the resulting position of current shape will be feasible
+            function valid( offsetX, offsetY) {
+                offsetX = offsetX || 0;
+                offsetY = offsetY || 0;
+                offsetX = currentX + offsetX;
+                offsetY = currentY + offsetY;
+
+                for ( var y = 0; y < 1; ++y ) {
+                    for ( var x = 0; x < max; ++x ) {
+                            if ( typeof board[ y + offsetY ] == 'undefined'
+                            || typeof board[ y + offsetY ][ x + offsetX ] == 'undefined'
+                            || board[ y + offsetY ][ x + offsetX ]
+                            || x + offsetX < 0
+                            || y + offsetY >= ROWS
+                            || x + offsetX >= COLS ) { 
+                                return false;
+                            }
+                        
+                    }
+                }
+                return true;
+            }
+
+            function canvasclick() {
+                if (firsttime) playButtonClicked();
+                else again();
+            }
+
+            function playButtonClicked() {
+                firsttime = false;
+                max = origin;
+                hits = 0;
+                newGame();
+            }
+
+            function newGame() {
+                clearAllIntervals();
+                intervalRender = setInterval( render, 5 );
+                init();
+                newShape();
+                interval = setInterval( tick, 200 );
+            }
+
+            function clearAllIntervals(){
+                clearInterval( interval );
+                clearInterval( intervalRender );
+            }
+        </script>
+        <script>
+            var canvas = document.getElementsByTagName( 'canvas' )[ 0 ];
+            var ctx = canvas.getContext( '2d' );
+            var W = 300, H = 400;
+            var BLOCK_W = W / COLS, BLOCK_H = H / ROWS;
+
+            // draw a single square at (x, y)
+            function drawBlock( x, y ) {
+                ctx.fillRect( BLOCK_W * x, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1 );
+                ctx.strokeRect( BLOCK_W * x, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1 );
+            }
+
+            // draws the board and the moving shape
+            function render() {
+                ctx.clearRect( 0, 0, W, H );
+
+                if(perfect && hits>1 && max>1 ){
+                ctx.fillStyle = 'cyan';
+                ctx.font = "40px";
+                ctx.fillText("PERFECT#", 80, 100);
+                }
+                ctx.fillStyle = 'cyan';
+                ctx.font = "30px Arial Red";
+                ctx.fillText("SCORE: "+hits, 10, 50);
+                for ( var x = 0; x < COLS; ++x ) {
+                    for ( var y = 0; y < ROWS; ++y ) {
+                        if ( board[ y ][ x ] ) {
+                            ctx.fillStyle = 'cyan';
+                            drawBlock( x, y );
+                        }
+                    }
+                }
+                ctx.fillStyle = 'black';
+                    for ( var x = 0; x < max; ++x ) {
+                        
+                            ctx.fillStyle = 'goldenrod';
+                            drawBlock( currentX + x, currentY );//used for colour change
+                        
+                    }
+            }
+        </script>
+        <script>
+            document.body.onkeydown = function( e ) {
+                var keys = {
+                    /*32: 'drop'*/
+                };
+                if ( typeof keys[ e.keyCode ] != 'undefined' ) {
+                    keyPress( keys[ e.keyCode ] );
+                    render();
+                }
+            };
+        </script>
+    </body>
+</html>

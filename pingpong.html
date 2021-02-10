@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Pingpong</title>
+    <style>
+        body {
+            background-color: #222;
+            color: #ccc;
+        }
+        canvas {
+            background-color: #222;
+        }
+    </style>
+  </head>
+
+  <body><br>
+    
+    <center>
+        <h4>Use 'A' and 'D' for blue colour and left right arrow keys for Yellow colour (for PC users)</h4><br>
+        <a onclick="buttonUp1()"><i class="fa fa-arrow-circle-left" style="font-size:60px; color: #0ff;"></i></a>
+        <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
+        <span class="hits1" style="color:#0ff; font-size: 50px; transform: rotate(180deg); display: inline-block;">0</span>
+        <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
+        <a onclick="buttonDown1()"><i class="fa fa-arrow-circle-right" style="font-size:60px; color: #0ff;"></i></a>
+        <canvas onclick="canvasclick()" id="myCanvas" width="300" height="400" style="border:4px solid #ccc; display: block; margin: 0 auto;"></canvas>
+        <a onclick="buttonUp2()"><i class="fa fa-arrow-circle-left" style="font-size:60px; color: goldenrod;"></i></a>
+        <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
+        <span class="hits2" style="color:goldenrod; font-size: 50px;">0</span>
+        <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
+        <a onclick="buttonDown2()"><i class="fa fa-arrow-circle-right" style="font-size:60px; color: goldenrod;"></i></a>
+    </center>
+    
+
+<script>
+
+
+var firsttime = true;
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var ballRadius = 6;
+var x = canvas.width/2;
+var y = canvas.height/2;
+var dx = 1;
+var dy = 1;
+var paddleHeight = 65;
+var paddleWidth = 10;
+var paddleX1 = (canvas.width-paddleWidth)/2;
+var paddleX2 = (canvas.width-paddleWidth)/2;
+var upPressed1 = false;
+var downPressed1 = false;
+var upPressed2 = false;
+var downPressed2 = false;
+var hits1 = 0;
+var hits2 = 0;
+var play;
+var solai = 1;
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e) {
+    if(e.key == "Left" || e.key == "ArrowLeft") {
+        upPressed2 = true;
+    }
+    else if(e.key == "Right" || e.key == "ArrowRight") {
+        downPressed2 = true;
+    }
+    else if(e.key == "A" || e.key == "a") {
+        upPressed1 = true;
+    }
+    else if(e.key == "D" || e.key == "d") {
+        downPressed1 = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.key == "Left" || e.key == "ArrowLeft") {
+        upPressed2 = false;
+    }
+    else if(e.key == "Right" || e.key == "ArrowRight") {
+        downPressed2 = false;
+    }
+    else if(e.key == "A" || e.key == "a") {
+        upPressed1 = false;
+    }
+    else if(e.key == "A" || e.key == "d") {
+        downPressed1 = false;
+    }
+}
+function buttonUp1(){
+    if(paddleX1 > 0) {
+        paddleX1 -= 50;
+    }
+}
+function buttonDown1(){
+    if(paddleX1 < canvas.width-paddleHeight) {
+        paddleX1 += 50;
+    }
+}
+function buttonUp2(){
+    if(paddleX2 > 0) {
+        paddleX2 -= 50;
+    } 
+}
+function buttonDown2(){
+    if(paddleX2 < canvas.width-paddleHeight) {
+        paddleX2 += 50;
+    }
+}
+function service1(){
+    x = 5*canvas.width/8;
+    y = canvas.height/2;
+    dx = -dx;
+    dy = -dy;
+}
+function service2(){
+    x = 3*canvas.width/8;
+    y = canvas.height/2;
+    dx = -dx;
+    dy = -dy;
+}
+function drawPaddle(ddx,ddy,col) {
+    ctx.beginPath();
+    ctx.rect(ddx, ddy, paddleHeight, paddleWidth);
+    ctx.fillStyle = col;
+    ctx.fill();
+    ctx.closePath();
+}
+function canvasclick() {
+    if (firsttime) playButtonClicked();
+}
+function startscreen(){
+    if(firsttime && solai){
+    ctx.fillStyle = 'goldenrod';
+    ctx.font = "25px Arial";
+    ctx.fillText("WELCOME TO", 65, 125);
+    ctx.fillText("PING PONG", 80, 158);
+    ctx.fillStyle = 'cyan';
+    ctx.font = "25px Arial";
+    ctx.fillText("CLICK ANYWHERE", 40, 215);
+    ctx.fillText("IN THE BOARD", 60, 248);
+    ctx.fillText("TO START", 93, 281);
+} else if(firsttime){
+    ctx.fillStyle = 'goldenrod';
+    ctx.font = "25px Arial";
+    ctx.fillText("CLICK ANYWHERE", 40, 85);
+    ctx.fillText("IN THE BOARD", 60, 115);
+    ctx.fillStyle = 'cyan';
+    ctx.fillText("TO RESTART", 80, 300);
+}}
+function drawLine() {
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2, canvas.width/4 - 7, 0, Math.PI*2);
+    ctx.strokeStyle = "#777";
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2, canvas.width/4 - 6, 0, Math.PI*2);
+    ctx.strokeStyle = "#777";
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.rect(0, canvas.height/2, canvas.width, 2);
+    ctx.fillStyle = "#777";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.rect(0, paddleWidth, canvas.width, 2);
+    ctx.fillStyle = "#777";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.rect(0, canvas.height - paddleWidth-2, canvas.width, 2);
+    ctx.fillStyle = "#777";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#0A0";
+    ctx.fill();
+    ctx.closePath();
+
+}
+function addHit1() {
+    hits1+= 1;
+    document.querySelector( '.hits1' ).innerHTML = hits1;
+}
+function addHit2() {
+    hits2+= 1;
+    document.querySelector( '.hits2' ).innerHTML = hits2;
+}
+function P1Won(){
+    alert("Blue Won. Press OK to play again."); hits1=0; hits2=0; play = false; solai=0;
+                firsttime = true;
+}
+function P2Won(){
+    alert("Yellow Won. Press OK to play again."); hits1=0; hits2=0; play = false; solai=0;
+                firsttime = true;
+}
+function playButtonClicked() {
+                firsttime = false;
+    if (solai!=0)
+    interval = setInterval( draw, 7 );
+    play = true;
+    dx = 1; dy = 1;
+    document.querySelector( '.hits1' ).innerHTML = 0;
+    document.querySelector( '.hits2' ).innerHTML = 0;
+}
+function draw() {
+    if(play==true){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawLine();
+    drawPaddle(paddleX1, 0,"cyan");
+    drawPaddle(paddleX2, canvas.height - paddleWidth,"gold");
+    
+    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+    }
+    if(y + dy < paddleWidth+5) {
+        if(x + dx < paddleX1 || x + dx > paddleX1 + paddleHeight) {addHit2(); service2();}
+        else dy = -dy;
+    }
+    if(y + dy > canvas.height - paddleWidth-5) {
+        if(x + dx < paddleX2 || x + dx > paddleX2 + paddleHeight) {addHit1(); service1();}
+        else dy = -dy;
+    }
+    if(hits1 > 5) P1Won();
+    if(hits2 > 5) P2Won();
+    if(downPressed1 && paddleX1 < canvas.width-paddleHeight) {
+        paddleX1 += 7;
+    }
+    else if(upPressed1 && paddleX1 > 0) {
+        paddleX1 -= 7;
+    }
+    else if(downPressed2 && paddleX2 < canvas.width-paddleHeight) {
+        paddleX2 += 7;
+    }
+    else if(upPressed2 && paddleX2 > 0) {
+        paddleX2 -= 7;
+    }
+    
+    x += dx;
+    y += dy;
+}}
+interval = setInterval(startscreen);
+</script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

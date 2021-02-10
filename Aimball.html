@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>Aimball</title>
+    <style>
+        body {
+            background-color: #222;
+            color: #ccc;
+        }
+    </style>
+
+  </head>
+
+  <body><br>
+      <h4 style=" text-align: center; color: goldenrod">Welcome to Aim ball...<br></h4>
+      <h4 style=" text-align: center; color: cyan">Place the balls in respective colours...<br></h4>
+      <center>
+        <h4 style=" text-align: center; color: cyan" id="counter">Remaining: <span class="hits">4</span></h4>
+    </center><br>
+      <canvas id="myCanvas" width="400" height="300" style="border:2px solid #ccc; background: #222; display: block; margin: 0 auto; "></canvas><br>
+        <center>
+            <a onclick="buttonUp()"><i class="fa fa-arrow-circle-up" style="font-size:80px;"></i></a><br>
+            <a onclick="buttonLeft()"><i class="fa fa-arrow-circle-left" style="font-size:80px;"></i></a>
+            <a onclick="buttonDown()"><i class="fa fa-arrow-circle-down" style="font-size:80px;"></i></a>
+            <a onclick="buttonRight()"><i class="fa fa-arrow-circle-right" style="font-size:80px;"></i></a>
+        </center>
+
+    </body>
+    
+<script>
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var ballRadius = 6;
+var x1 = canvas.width/2;
+var y1 = canvas.height-30;
+var x2 = canvas.width/2;
+var y2 = canvas.height-30;
+var x3 = canvas.width/2;
+var y3 = canvas.height-30;
+var x4 = canvas.width/2;
+var y4 = canvas.height-30;
+var dx1 = 1;
+var dy1 = 1;
+var dx2 = 1;
+var dy2 = -1;
+var dx3 = -1;
+var dy3 = -1;
+var dx4 = -1;
+var dy4 = 1;
+var paddleHeight = 4;
+var paddleWidth = 80;
+var paddleX = (canvas.width-paddleWidth)/2;
+var paddleY = (canvas.height-paddleWidth)/2;
+var rightPressed = false;
+var leftPressed = false;
+var upPressed = false;
+var downPressed = false;
+var ball1 = true;
+var ball2 = true;
+var ball3 = true;
+var ball4 = true;
+var hits = 0;
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = true;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = true;
+    }
+    else if(e.key == "Up" || e.key == "ArrowUp") {
+        upPressed = true;
+    }
+    else if(e.key == "Down" || e.key == "ArrowDown") {
+        downPressed = true;
+    }
+}
+function keyUpHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = false;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = false;
+    }
+    if(e.key == "Up" || e.key == "ArrowUp") {
+        upPressed = false;
+    }
+    else if(e.key == "Down" || e.key == "ArrowDown") {
+        downPressed = false;
+    }
+}
+function buttonRight(){
+    if(paddleX < canvas.width-paddleWidth) {
+        paddleX += 40;
+    }
+}
+function buttonLeft(){
+    if(paddleX > 0) {
+        paddleX -= 40;
+    }
+}
+function buttonUp(){
+    if(paddleY > 0) {
+        paddleY -= 20;
+    } 
+}
+function buttonDown(){
+    if(paddleY < canvas.height-paddleWidth) {
+        paddleY += 20;
+    }
+}
+function drawBall(x,y,z) {
+    ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.fillStyle = z;
+    ctx.fill();
+    ctx.closePath();
+}
+function drawPaddle(x,y,z,w) {
+    ctx.beginPath();
+    ctx.rect(x,y,z,w);
+    ctx.fillStyle = "#ccc";
+    ctx.fill();
+    ctx.closePath();
+}
+function drawPath(x,y,z) {
+    ctx.beginPath();
+    ctx.rect(x, y, 20, 20);
+    ctx.fillStyle = z;
+    ctx.fill();
+    ctx.closePath();
+}
+function addHit() {
+  hits+= 1;
+  document.querySelector( '.hits' ).innerHTML = 4 - hits;
+}
+function gameOver(){
+    alert("Game Over. Your Score: "+ hits.toFixed(1) +". Press OK to play again.");
+    document.location.reload();
+    clearInterval(interval); // Needed for Chrome to end game
+}
+function youWon(){
+    alert("You Won. Press OK to play again.");
+    document.location.reload();
+    clearInterval(interval);
+}
+function reset(){
+    document.location.reload();
+    clearInterval(interval);
+}
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPaddle(paddleX, canvas.height/2, paddleWidth, paddleHeight);
+    drawPaddle(canvas.width/2,paddleY, paddleHeight, paddleWidth);
+    drawPath(1,1,"red");
+    drawPath(canvas.width-21,1,"green");
+    drawPath(canvas.width-21,canvas.height-21,"blue");
+    drawPath(1,canvas.height-21,"orange");
+
+    if(ball1){
+        drawBall(x1,y1,"red");
+        if(x1 + dx1 > canvas.width-ballRadius || x1 + dx1 < ballRadius) {
+        dx1 = -dx1;
+        }
+        if((y1 + dy1 < ballRadius)||(y1 + dy1 > canvas.height-ballRadius)) {
+        dy1 = -dy1;
+        }
+        
+        if((y1 + dy1 >= canvas.height/2 )&&(y1 + dy1 -paddleHeight<= canvas.height/2)){
+        if(x1 > paddleX && x1 < paddleX + paddleWidth) { dy1 = -dy1;}}
+
+        if((x1 + dx1 >= canvas.width/2)&&(x1 + dx1  -paddleHeight <= canvas.width/2)){
+        if(y1 > paddleY && y1 < paddleY + paddleWidth) { dx1 = -dx1;}}
+
+        if(y1 + dy1 >= 2 && y1 + dy1 <= 21){
+        if(x1 + dx1 >= 2 && x1 + dx1 <= 21) { addHit(); ball1 = false;}}
+        x1 += dx1;
+        y1 += dy1;
+    }
+  
+    if(ball2){
+        drawBall(x2,y2,"green");
+        if(x2 + dx2 > canvas.width-ballRadius || x2 + dx2 < ballRadius) {
+        dx2 = -dx2;
+        }
+        if((y2 + dy2 <= ballRadius)||(y2 + dy2 >= canvas.height-ballRadius)) {
+        dy2 = -dy2;
+        }
+        
+        if((y2 + dy2 >= canvas.height/2 )&&(y2 + dy2 -paddleHeight<= canvas.height/2)){
+        if(x2 > paddleX && x2 < paddleX + paddleWidth) { dy2 = -dy2;}}
+
+        if((x2 + dx2 >= canvas.width/2 )&&(x2 + dx2 -paddleHeight <= canvas.width/2)){
+        if(y2 > paddleY && y2 < paddleY + paddleWidth) { dx2 = -dx2;}}
+
+        if(y2 + dy2 >= 2 && y2 + dy2 <= 21){
+        if(x2 + dx2 >= canvas.width-20 && x2 + dx2 <= canvas.width-2) { addHit(); ball2 = false;}}
+        x2 += dx2;
+        y2 += dy2;
+    }
+
+    if(ball3){
+        drawBall(x3,y3,"blue");
+        if(x3 + dx3 > canvas.width-ballRadius || x3 + dx3 < ballRadius) {
+        dx3 = -dx3;
+        }
+        if((y3 + dy3 < ballRadius)||(y3 + dy3 > canvas.height-ballRadius)) {
+        dy3 = -dy3;
+        }
+        
+        if((y3 + dy3 >= canvas.height/2)&&(y3 + dy3 -paddleHeight <= canvas.height/2)){
+        if(x3 > paddleX && x3 < paddleX + paddleWidth) { dy3 = -dy3;}}
+
+        if((x3 + dx3 >= canvas.width/2)&&(x3 + dx3 -paddleHeight<= canvas.width/2)){
+        if(y3 > paddleY && y3 < paddleY + paddleWidth) { dx3 = -dx3;}}
+
+        if(y3 + dy3 >= canvas.height-20 && y3 + dy3 <= canvas.height-2){
+        if(x3 + dx3 >= canvas.width-20 && x3 + dx3 <= canvas.width-2) { addHit(); ball3 = false;}}
+        x3 += dx3;
+        y3 += dy3;
+    }
+    
+    if(ball4){
+        drawBall(x4,y4,"orange");
+        if(x4 + dx4 > canvas.width-ballRadius || x4 + dx4 < ballRadius) {
+        dx4 = -dx4;
+        }
+        if(y4 + dy4 < ballRadius||y4 + dy4 > canvas.height-ballRadius) {
+        dy4 = -dy4;
+        }
+        
+        if((y4 + dy4 >= canvas.height/2)&&(y4 + dy4 -paddleHeight <= canvas.height/2)){
+        if(x4 > paddleX && x4 < paddleX + paddleWidth) { dy4 = -dy4;}}
+
+        if((x4 + dx4 >= canvas.width/2 )&&(x4 + dx4-paddleHeight <= canvas.width/2)){
+        if(y4 > paddleY && y4 < paddleY + paddleWidth) { dx4 = -dx4;}}
+
+        if(y4 + dy4 >= canvas.height-20 && y4 + dy4 <= canvas.height-2){
+        if(x4 + dx4 >= 2 && x4 + dx4 <= 21) { addHit(); ball4 = false;}}
+        x4 += dx4;
+        y4 += dy4;
+    }
+
+    if(hits==4)youWon();
+    
+    if(rightPressed && paddleX < canvas.width-paddleWidth) {
+        paddleX += 7;
+    }
+    else if(leftPressed && paddleX > 0) {
+        paddleX -= 7;
+    } 
+    else if(upPressed && paddleY > 0) {
+        paddleY -= 5;
+    } 
+    else if(downPressed && paddleY < canvas.height-paddleWidth) {
+        paddleY += 5;
+    }    
+}
+
+var interval = setInterval(draw, 10);
+
+</script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+</html>
