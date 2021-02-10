@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<title>Mini Games</title>
+<link rel="stylesheet" href="game.css">
+<style>
+  body{
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+  <br><h3>Welcome to Mini Games. Click any one to play...</h3>
+  <br>
+  <img src="icons/Ab.jpg" onclick="window.location.href='Aimball.html';" title="Aimball">
+  <img src="icons/Eb.jpg" onclick="window.location.href='Escapeball.html';" title="Escapeball">
+  <img src="icons/Pp.jpg" onclick="window.location.href='pingpong.html';" title="Pingpong">
+  <img src="icons/Sp.jpg" onclick="window.location.href='singlepong.html';" title="Single player Pingpong">
+  <img src="icons/Sg.jpg" onclick="window.location.href='snakegame.html';" title="Snake Game">
+  <img src="icons/St.jpg" onclick="window.location.href='stacktower.html';" title="Stack Tower">
+  <img src="icons/Tg.jpg" onclick="window.location.href='tetrisgame.html';" title="Tetris Game">
+
+  <input type="checkbox" id="check">
+  <label for="check">
+    <i class="fas fa-bars" id="btn"></i>
+    <i class="fas fa-times" id="cancel"></i>
+  </label>
+  <div class="sidebar">
+    <header>Menu</header>
+    <a href="#" class="active">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="about.html">
+      <i class="fas fa-question-circle"></i>
+      <span>About</span>
+    </a>
+    <a href="aboutme.html">
+      <i class="fas fa-question"></i>
+      <span>About_Me</span>
+    </a>
+    <a href="contact.html">
+      <i class="fas fa-phone-square" style="transform: rotate(90deg);"></i>
+      <span>Contact_Me</span>
+    </a>
+    <a onclick="swapmode()">
+      <i class="fas fa-adjust"></i>
+      <span>Theme</span>
+    </a>
+  </div><br>
+</body>
+<script src="toggle.js"></script>
