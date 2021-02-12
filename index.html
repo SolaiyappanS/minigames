@@ -11,50 +11,88 @@
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <title>Mini Games</title>
 <link rel="stylesheet" href="game.css">
-<style>
-  body{
-    height: 100%;
-  }
-</style>
 </head>
 <body>
-  <br><h3>Welcome to Mini Games. Click any one to play...</h3>
-  <br>
-  <img src="icons/Ab.jpg" onclick="window.location.href='Aimball.html';" title="Aimball">
-  <img src="icons/Eb.jpg" onclick="window.location.href='Escapeball.html';" title="Escapeball">
-  <img src="icons/Pp.jpg" onclick="window.location.href='pingpong.html';" title="Pingpong">
-  <img src="icons/Sp.jpg" onclick="window.location.href='singlepong.html';" title="Single player Pingpong">
-  <img src="icons/Sg.jpg" onclick="window.location.href='snakegame.html';" title="Snake Game">
-  <img src="icons/St.jpg" onclick="window.location.href='stacktower.html';" title="Stack Tower">
-  <img src="icons/Tg.jpg" onclick="window.location.href='tetrisgame.html';" title="Tetris Game">
+
+  <div id = "home">
+    <br><h4>Welcome to Mini Games. Click any one to play...</h4>
+    <br>
+    <div class="games"><center>
+      <a href="games/Aimball.html" title="Aimball">Ab</a><br>
+      <a href="games/Escapeball.html" title="Escapeball">Eb</a><br>
+      <a href="games/pingpong.html" title="Pingpong">Pp</a><br>
+      <a href="games/singlepong.html" title="Single player Pingpong">Sp</a><br>
+      <a href="games/snakegame.html" title="Snake Game">Sg</a><br>
+      <a href="games/stacktower.html" title="Stack Tower">St</a><br>
+      <a href="games/tetrisgame.html" title="Tetris Game">Tg</a></center>
+    </div>
+  </div>
+
+  <div id = "about">
+    
+    <br><h4>About</h4>
+    <br><br><ul>
+    <li>These games were created using HTML5, CSS3, and JavaScript.</li>
+    <li>Few games work better in PC than in mobile phones.</li>
+    <li>Please do mention if there are any issues.</li>
+    <li>Contact me if there is any new idea.</li>
+    <li>Thank you.</li></ul>
+  </div>
+
+  <div id = "aboutme">
+    <br><h4>About Me</h4>
+    <br><br><ul>
+    <li>I'm Solaiyappan Shanmuganathan, studying 3rd year ECE in Thiagarajar College of Engineering, Madurai.</li>
+    <li>My Areas of Interest are Embedded Systems and Front End Development.</li>
+    <li>My hobbies are Image, Audio and Video Editing and Solving Rubik's Cube.</li>
+    <li>Contact me using any of the platforms mentioned.</li>
+    <li>Thank you.</li></ul>
+  </div>
+
+  <div id = "contact">
+    <br><h4>Contact me Via</h4>
+    <br><br><center>
+    <div class = "contac">
+      <a href="https://www.facebook.com/solaiyappan.tce/"><i class="fab fa-facebook" title="Facebook"></i></a>
+      <a href="https://twitter.com/Solaiya00571618"><i class="fab fa-twitter-square" title="Twitter"></i></a>
+      <a href="https://t.me/solaiyappatce"><i class="fab fa-telegram" title="Telegram"></i></a>
+      <a href="https://www.instagram.com/solaiyappa_tce/"><i class="fab fa-instagram" title="Instagram"></i></a>
+      <a href="https://www.linkedin.com/in/solaiyappan-shanmuganathan-2a89121b3/"><i class="fab fa-linkedin" title="LinkedIn"></i></a>
+      <a href="mailto:solaiyappan@student.tce.edu"><i class="fas fa-envelope-square" title="Mail"></i></a>
+      <a href="https://wa.me/+919487465308"><i class="fab fa-whatsapp-square" title="WhatsApp"></i></a>
+    </div><br><br>
+    <p style="color:#ccc">If the mail icon doesn't work, please use <a style="background: none; border-left: 0px;" href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSHwfTCzZlRsQjkRHJfJBmwZRcrBTbpHPCxlCHlhkWsvJZqFDFLwsbbkkxbtzZDVmRWVNxNx">
+      this</a> link.<br>
+    Telegram link may not work on PC.</p></center>
+  </div>
 
   <input type="checkbox" id="check">
-  <label for="check">
-    <i class="fas fa-bars" id="btn"></i>
-    <i class="fas fa-times" id="cancel"></i>
+  <label for= "check">
+      <i class="fas fa-times" id="cancel"></i>
+      <i class="fas fa-bars" id="btn"></i>
   </label>
   <div class="sidebar">
     <header>Menu</header>
-    <a href="#" class="active">
+    <a onclick="home()" id="homei" class="active">
       <i class="fas fa-home"></i>
       <span>Home</span>
     </a>
-    <a href="about.html">
-      <i class="fas fa-question-circle"></i>
+    <a onclick="about()" id="abouti">
+      <i class="fas fa-info-circle"></i>
       <span>About</span>
     </a>
-    <a href="aboutme.html">
-      <i class="fas fa-question"></i>
+    <a onclick="aboutme()" id="aboutmei">
+      <i class="fas fa-address-book"></i>
       <span>About_Me</span>
     </a>
-    <a href="contact.html">
-      <i class="fas fa-phone-square" style="transform: rotate(90deg);"></i>
+    <a onclick="contact()" id="contacti">
+      <i class="fas fa-phone fa-flip-horizontal"></i>
       <span>Contact_Me</span>
     </a>
     <a onclick="swapmode()">
       <i class="fas fa-adjust"></i>
       <span>Theme</span>
     </a>
-  </div><br>
+  </div>
 </body>
 <script src="toggle.js"></script>

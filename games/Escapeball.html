@@ -7,17 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <title>Escapeball</title>
-    <style>
-        body {
-            background-color: #222;
-            color: #ccc;
-        }
-    </style>
+<link rel="stylesheet" href="../game.css">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 
   </head>
 
-  <body><br>
-      <h4 style=" text-align: center;">Welcome to Escapeball ...<br>Don't allow the balls to touch the line...<br>This game may not work for some devices...<br><br>Choose difficulty level</h4><br>
+  <body>
+    <div id = "home">
+        <br>
+      <h4>Welcome to Escapeball ...<br><br>Choose difficulty level</h4><br>
       <center>
         <input type="range" id="diffrange" min="0" max="3" value="0" onchange="difficulty()" style="width:50%"><br><br>
         <h4 id="counter">Score: <span class="hits">0</span></h4>
@@ -28,7 +26,42 @@
             <i class="fa fa-circle" style="font-size:80px; visibility: hidden;"></i>
             <a onclick="buttonRight()"><i class="fa fa-arrow-circle-right" style="font-size:80px;"></i></a>
         </center>
-
+</div>
+<div id = "about">
+    
+<br><h4>About</h4>
+<br><br><ul>
+<li>Choose the difficulty level by dragging the bar.</li>
+<li>This game work better in PC than in mobile phones.</li>
+<li>Move the line using navigation keys or the buttons.</li>
+<li>Once a ball touches the line, the game ends.</li>
+<li>Thank you.</li></ul>
+</div>
+      
+        <input type="checkbox" id="check" checked="true">
+        <label for= "check">
+            <i class="fas fa-times" id="cancel"></i>
+            <i class="fas fa-bars" id="btn"></i>
+        </label>
+        <div class="sidebar">
+            <header>Escape Ball</header>
+            <a href="../index.html">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+            <a onclick="game()" id="homei" class="active">
+              <i class="fas fa-gamepad"></i>
+              <span>Game</span>
+            </a>
+            <a onclick="info()" id="abouti">
+              <i class="fas fa-info-circle"></i>
+              <span>About</span>
+            </a>
+            <a onclick="swapmode()">
+              <i class="fas fa-adjust"></i>
+              <span>Theme</span>
+            </a>
+          </div>
     </body>
     
 <script>
@@ -212,4 +245,5 @@ var interval = setInterval(draw, 10);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
+<script src="../toggle.js"></script>
 </html>

@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     
     <title>Aimball</title>
-    <style>
-        body {
-            background-color: #222;
-            color: #ccc;
-        }
-    </style>
+<link rel="stylesheet" href="../game.css">
   </head>
-  <body><br>
-      <h4 style=" text-align: center; color: goldenrod">Welcome to Aim ball...<br></h4>
-      <h4 style=" text-align: center; color: cyan">Place the balls in respective colours...<br></h4>
-      <center>
-        <h4 style=" text-align: center; color: cyan" id="counter">Remaining: <span class="hits">4</span></h4>
+  <body>
+      
+  <div id = "home">
+      <br> <center>
+      <h4>Welcome to Aim ball...<br></h4>
+     
+        <h4 id="counter">Remaining: <span class="hits">4</span></h4>
     </center><br>
       <canvas id="myCanvas" width="400" height="300" style="border:2px solid #ccc; background: #222; display: block; margin: 0 auto; "></canvas><br>
         <center>
@@ -27,7 +25,41 @@
             <a onclick="buttonDown()"><i class="fa fa-arrow-circle-down" style="font-size:80px;"></i></a>
             <a onclick="buttonRight()"><i class="fa fa-arrow-circle-right" style="font-size:80px;"></i></a>
         </center>
-
+        </div>
+        <div id = "about">
+            
+        <br><h4>About</h4>
+        <br><br><ul>
+        <li>Place the balls in the respective colours.</li>
+        <li>You can use both buttons and navigation keys.</li>
+        <li>Once all the balls are placed in correct colours, the game ends.</li>
+        <li>Thank you.</li></ul>
+        </div>
+              
+        <input type="checkbox" id="check" checked="true">
+        <label for= "check">
+            <i class="fas fa-times" id="cancel"></i>
+            <i class="fas fa-bars" id="btn"></i>
+        </label>
+        <div class="sidebar">
+            <header>Aim Ball</header>
+            <a href="../index.html">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+            <a onclick="game()" id="homei" class="active">
+              <i class="fas fa-gamepad"></i>
+              <span>Game</span>
+            </a>
+            <a onclick="info()" id="abouti">
+              <i class="fas fa-info-circle"></i>
+              <span>About</span>
+            </a>
+            <a onclick="swapmode()">
+              <i class="fas fa-adjust"></i>
+              <span>Theme</span>
+            </a>
+          </div>
     </body>
     
 <script>
@@ -273,4 +305,5 @@ var interval = setInterval(draw, 10);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
+<script src="../toggle.js"></script>
 </html>
