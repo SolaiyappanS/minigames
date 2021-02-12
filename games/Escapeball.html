@@ -15,13 +15,17 @@
   <body>
     <div id = "home">
         <br>
-      <h4>Welcome to Escapeball ...<br><br>Choose difficulty level</h4><br>
+      <h4>Welcome to Escapeball...<br><br>Choose difficulty level</h4><br>
       <center>
-        <input type="range" id="diffrange" min="0" max="3" value="0" onchange="difficulty()" style="width:50%"><br><br>
+        <div id="radio">
+            <a onclick="easy()" id="easy">easy</a>
+            <a onclick="medium()" id="medium">medium</a>
+            <a onclick="hard()" id="hard">hard</a>
+        </div><br>
         <h4 id="counter">Score: <span class="hits">0</span></h4>
-    </center><br>
-      <canvas id="myCanvas" width="400" height="200" style="border:2px solid #ccc; background: #222; display: block; margin: 0 auto; "></canvas><br><br>
-        <center>
+    <br>
+      <canvas id="myCanvas" width="300" height="300"></canvas><br><br>
+     
             <a onclick="buttonLeft()"><i class="fa fa-arrow-circle-left" style="font-size:80px;"></i></a>
             <i class="fa fa-circle" style="font-size:80px; visibility: hidden;"></i>
             <a onclick="buttonRight()"><i class="fa fa-arrow-circle-right" style="font-size:80px;"></i></a>
@@ -31,8 +35,7 @@
     
 <br><h4>About</h4>
 <br><br><ul>
-<li>Choose the difficulty level by dragging the bar.</li>
-<li>This game work better in PC than in mobile phones.</li>
+<li>Choose a difficulty level to start the game.</li>
 <li>Move the line using navigation keys or the buttons.</li>
 <li>Once a ball touches the line, the game ends.</li>
 <li>Thank you.</li></ul>
@@ -66,7 +69,6 @@
     
 <script>
 
-var difficult = document.getElementById("diffrange");
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var ballRadius1 = 6;
@@ -92,6 +94,9 @@ var leftPressed = false;
 var ball1 = false;
 var ball2 = false;
 var ball3 = false;
+var easyi = false;
+var mediumi = false;
+var hardi = false;
 var hits = 0;
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -117,16 +122,52 @@ function easy(){
     ball1=false;
     ball2=true;
     ball3=false;
+    if(!easyi){
+    document.getElementById("easy").classList.toggle("radio");
+    easyi = !easyi;
+    }
+    if(mediumi){
+    document.getElementById("medium").classList.toggle("radio");
+    mediumi = !mediumi;
+    }
+    if(hardi){
+    document.getElementById("hard").classList.toggle("radio");
+    hardi = !hardi;
+    }
 }
 function medium(){
     ball1=false;
     ball2=true;
     ball3=true;
+    if(easyi){
+    document.getElementById("easy").classList.toggle("radio");
+    easyi = !easyi;
+    }
+    if(!mediumi){
+    document.getElementById("medium").classList.toggle("radio");
+    mediumi = !mediumi;
+    }
+    if(hardi){
+    document.getElementById("hard").classList.toggle("radio");
+    hardi = !hardi;
+    }
 }
 function hard(){
     ball1=true;
     ball2=true;
     ball3=true;
+    if(easyi){
+    document.getElementById("easy").classList.toggle("radio");
+    easy = !easy;
+    }
+    if(mediumi){
+    document.getElementById("medium").classList.toggle("radio");
+    mediumi = !mediumi;
+    }
+    if(!hardi){
+    document.getElementById("hard").classList.toggle("radio");
+    hardi = !hardi;
+    }
 }
 function buttonRight(){
     if(paddleX < canvas.width-paddleWidth) {
@@ -155,11 +196,6 @@ function drawPaddle() {
 function addHit() {
   hits+= 0.5;
   document.querySelector( '.hits' ).innerHTML = hits;
-}
-function difficulty() {
-    if (difficult.value==1) easy();
-    else if (difficult.value==2) medium();
-    else if (difficult.value==3) hard();
 }
 function gameOver(){
     alert("Game Over. Your Score: "+ hits.toFixed(1) +". Press OK to play again.");

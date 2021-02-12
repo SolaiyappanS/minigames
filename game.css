@@ -29,6 +29,7 @@ background-image: linear-gradient(to left, var(--accent-color-bg), var(--gradien
 --accent-color-bgd: #045d;
 --gradient-color-bg: #023;
 --gradient-color-sb: #223;
+--gradient-color-a: #aef;
 transition: all 1s ease-out;
 }
 .sidebar{
@@ -189,18 +190,20 @@ transition-duration: 500ms;
 .orange{
     --accent-color: #c40;
     --gradient-color: #a60;
-    --accent-color-bg: #840;
+    --accent-color-bg: #740;
     --accent-color-bgd: #720d;
     --gradient-color-bg: #720;
     --gradient-color-sb: #322;
+    --gradient-color-a: #fca;
 }
 .purple{
     --accent-color: #a04;
     --gradient-color: #903;
-    --accent-color-bg: #c04;
-    --accent-color-bgd: #c04d;
+    --accent-color-bg: #702;
+    --accent-color-bgd: #804d;
     --gradient-color-bg: #a04;
     --gradient-color-sb: #302;
+    --gradient-color-a: #fdf;
 }
 .green{
     --accent-color: #094;
@@ -209,6 +212,7 @@ transition-duration: 500ms;
     --accent-color-bgd: #062d;
     --gradient-color-bg: #051;
     --gradient-color-sb: #032;
+    --gradient-color-a: #afc;
 }
 .black{
     --accent-color: #333;
@@ -217,6 +221,7 @@ transition-duration: 500ms;
     --accent-color-bgd: #222d;
     --gradient-color-bg: #111;
     --gradient-color-sb: #111;
+    --gradient-color-a: #ccc;
 }
 #home{
     display:contents;
@@ -272,4 +277,26 @@ p a{
 p a:hover{
     color: #fff;
     text-transform:uppercase;
+}
+#radio{
+    text-transform: uppercase;
+    font-size: 25px;
+    font-weight: bolder;
+    cursor: pointer;
+    color: #fff;
+}
+
+#radio a:hover {
+    color: var(--gradient-color-a);
+}
+
+#radio .radio {
+    color: var(--gradient-color-a);
+}
+canvas{
+    border: 4px solid var(--gradient-color-a);
+}
+center a i{
+    color: var(--gradient-color-a);
+    font-size: 60px;
 }

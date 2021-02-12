@@ -15,8 +15,7 @@
   <div id = "home">
             <center><br><h4>Welcome to Tetris Game...</h4>
                 <h4>Score: <span class="hits">0</span></h4><br>
-                <audio id="clearsound" src="sound/pop.ogg" preload="auto"></audio>
-                <canvas onclick= 'canvasclick()' width='240' height='320' style="border:10px solid #eee; background: black;"></canvas><br>
+                <canvas onclick= 'canvasclick()' width='300' height='400'></canvas><br>
 
                 <table>
                     <tr>
@@ -26,7 +25,7 @@
                         <a onclick="rotates()"><i class="fa fa-circle" style="font-size:40px;"></i></a><br></td>
                     </tr>
                     <tr>
-                    <th rowspan="2"><a onclick="drop()"><i class="fa fa-circle" style="font-size:75px; color: rgb(255, 132, 132);"></i></a></th>
+                    <th rowspan="2"><a onclick="drop()"><i class="fa fa-circle" style="font-size:75px; color: #ccca;"></i></a></th>
                       <td style="text-align: center;">
                         <a onclick="left()"><i class="fa fa-circle" style="font-size:40px;"></i></a>
                         <i class="fa fa-circle" style="font-size:40px; visibility: hidden;"></i>
@@ -107,7 +106,7 @@
             1, 1, 1 ]
         ];
         var colors = [
-            'cyan', 'pink','cyan', 'pink','cyan', 'pink','cyan', 'pink'
+            '#fffa'
         ];
 
         // creates a new 4x4 shape in global variable 'current'
@@ -201,7 +200,6 @@
                     }
                 }
                 if ( rowFilled ) {
-                    document.getElementById( 'clearsound' ).play();
                     for ( var yy = y; yy > 0; --yy ) {
                         for ( var x = 0; x < COLS; ++x ) {
                             board[ yy ][ x ] = board[ yy - 1 ][ x ];
@@ -247,12 +245,11 @@
         
         function startscreen() {
             ctx.clearRect( 0, 0, W, H );
-            ctx.fillStyle = 'pink';
+            ctx.fillStyle = '#eee';
             ctx.font = "25px Arial Red";
-            ctx.fillText("CLICK ANYWHERE", 8, 115);
-            ctx.fillText("IN THE SCREEN", 28, 148);
-            ctx.fillStyle = 'cyan';
-            ctx.fillText("TO START", 60, 181);
+            ctx.fillText("CLICK ANYWHERE", 40, 165);
+            ctx.fillText("IN THE SCREEN", 60, 198);
+            ctx.fillText("TO START", 90, 231);
         }
 
         function rotates(){
@@ -392,7 +389,7 @@
     <script>
         var canvas = document.getElementsByTagName( 'canvas' )[ 0 ];
         var ctx = canvas.getContext( '2d' );
-        var W = 240, H = 320;
+        var W = 300, H = 400;
         var BLOCK_W = W / COLS, BLOCK_H = H / ROWS;
 
         // draw a single square at (x, y)
@@ -405,7 +402,6 @@
         function render() {
             ctx.clearRect( 0, 0, W, H );
 
-            ctx.strokeStyle = 'black';
             for ( var x = 0; x < COLS; ++x ) {
                 for ( var y = 0; y < ROWS; ++y ) {
                     if ( board[ y ][ x ] ) {
@@ -415,8 +411,6 @@
                 }
             }
 
-            ctx.fillStyle = 'red';
-            ctx.strokeStyle = 'black';
             for ( var y = 0; y < 4; ++y ) {
                 for ( var x = 0; x < 4; ++x ) {
                     if ( current[ y ][ x ] ) {
