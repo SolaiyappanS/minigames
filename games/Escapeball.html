@@ -15,7 +15,7 @@
   <body>
     <div id = "home">
         <br>
-      <h4>Welcome to Escapeball...<br><br>Choose difficulty level</h4><br>
+      <h4>Welcome to Escapeball...<br></h4><br>
       <center>
         <div id="radio">
             <a onclick="easy()" id="easy">easy</a>
@@ -24,7 +24,7 @@
         </div><br>
         <h4 id="counter">Score: <span class="hits">0</span></h4>
     <br>
-      <canvas id="myCanvas" width="300" height="300"></canvas><br><br>
+      <canvas id="myCanvas" width="300" height="350"></canvas><br><br>
      
             <a onclick="buttonLeft()"><i class="fa fa-arrow-circle-left" style="font-size:80px;"></i></a>
             <i class="fa fa-circle" style="font-size:80px; visibility: hidden;"></i>
@@ -74,11 +74,11 @@ var ctx = canvas.getContext("2d");
 var ballRadius1 = 6;
 var ballRadius2 = 6;
 var ballRadius3 = 6;
-var x1 = canvas.width/2;
+var x1 = canvas.width/2 + 5;
 var y1 = canvas.height-30;
 var x2 = canvas.width/2;
 var y2 = canvas.height-30;
-var x3 = canvas.width/2;
+var x3 = canvas.width/2 - 5;
 var y3 = canvas.height-30;
 var dx1 = 2;
 var dy1 = -2;
@@ -87,7 +87,7 @@ var dy2 = -1;
 var dx3 = -1;
 var dy3 = -1;
 var paddleHeight = 5;
-var paddleWidth = 60;
+var paddleWidth = 100 ;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
@@ -158,7 +158,7 @@ function hard(){
     ball3=true;
     if(easyi){
     document.getElementById("easy").classList.toggle("radio");
-    easy = !easy;
+    easyi = !easyi;
     }
     if(mediumi){
     document.getElementById("medium").classList.toggle("radio");
