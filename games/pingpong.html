@@ -16,19 +16,14 @@
     <div id = "home">
         <br>
     
-    <center>
-        <h4>Welcome to Ping Pong...</h4><br>
-        <a onclick="buttonUp1()"><i class="fa fa-arrow-circle-left" style="font-size:60px; color: #0ff;"></i></a>
+    <center><br><br>
+        <a onclick="buttonUp1()"><i class="fa fa-arrow-circle-left" style="font-size:60px; color: #ccc;"></i></a>
         <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
-        <span class="hits1" style="color:#0ff; font-size: 50px; transform: rotate(180deg); display: inline-block;">0</span>
+        <a onclick="buttonDown1()"><i class="fa fa-arrow-circle-right" style="font-size:60px; color: #ccc;"></i></a><br><br>
+        <canvas onclick="canvasclick()" id="myCanvas" width="300" height="400"></canvas><br><br>
+        <a onclick="buttonUp2()"><i class="fa fa-arrow-circle-left" style="font-size:60px; color: #ccc;"></i></a>
         <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
-        <a onclick="buttonDown1()"><i class="fa fa-arrow-circle-right" style="font-size:60px; color: #0ff;"></i></a><br>
-        <canvas onclick="canvasclick()" id="myCanvas" width="300" height="400"></canvas><br>
-        <a onclick="buttonUp2()"><i class="fa fa-arrow-circle-left" style="font-size:60px; color: goldenrod;"></i></a>
-        <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
-        <span class="hits2" style="color:goldenrod; font-size: 50px;">0</span>
-        <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
-        <a onclick="buttonDown2()"><i class="fa fa-arrow-circle-right" style="font-size:60px; color: goldenrod;"></i></a>
+        <a onclick="buttonDown2()"><i class="fa fa-arrow-circle-right" style="font-size:60px; color: #ccc;"></i></a>
     </center>
     </div>
     <div id = "about">
@@ -169,26 +164,26 @@ function canvasclick() {
 }
 function startscreen(){
     if(firsttime && solai){
-    ctx.fillStyle = 'goldenrod';
+    ctx.fillStyle = '#ccc';
     ctx.font = "25px Arial";
     ctx.fillText("WELCOME TO", 65, 125);
     ctx.fillText("PING PONG", 80, 158);
-    ctx.fillStyle = 'cyan';
-    ctx.font = "25px Arial";
     ctx.fillText("CLICK ANYWHERE", 40, 215);
     ctx.fillText("IN THE BOARD", 60, 248);
     ctx.fillText("TO START", 93, 281);
-} else if(firsttime){
-    ctx.fillStyle = 'goldenrod';
-    ctx.font = "25px Arial";
-    ctx.fillText("CLICK ANYWHERE", 40, 85);
-    ctx.fillText("IN THE BOARD", 60, 115);
-    ctx.fillStyle = 'cyan';
-    ctx.fillText("TO RESTART", 80, 300);
-}}
+}
+}
 function drawLine() {
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#ccc';
+    ctx.font = "30px Arial Red";
+    ctx.fillText(hits1, 10, 190);
+
+    ctx.fillStyle = '#ccc';
+    ctx.font = "30px Arial Red";
+    ctx.fillText(hits2, 10, 230);
 
     ctx.beginPath();
     ctx.arc(canvas.width/2, canvas.height/2, canvas.width/4 - 7, 0, Math.PI*2);
@@ -222,42 +217,88 @@ function drawLine() {
 
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#0A0";
+    ctx.fillStyle = "#aaa";
     ctx.fill();
     ctx.closePath();
 
 }
 function addHit1() {
     hits1+= 1;
-    document.querySelector( '.hits1' ).innerHTML = hits1;
 }
 function addHit2() {
     hits2+= 1;
-    document.querySelector( '.hits2' ).innerHTML = hits2;
 }
 function P1Won(){
-    alert("Blue Won. Press OK to play again."); hits1=0; hits2=0; play = false; solai=0;
-                firsttime = true;
+    ctx.clearRect(0, 150, canvas.width/4, canvas.height/4);
+    ctx.fillStyle = '#ccc';
+    ctx.font = "15px Arial Red";
+    ctx.fillText("WON", 250, 190);
+    ctx.font = "30px Arial Red";
+    ctx.fillText(hits1, 10, 190);
+
+    ctx.beginPath();
+    ctx.rect(0, canvas.height/2, canvas.width, 2);
+    ctx.fillStyle = "#777";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.fillStyle = '#ccc';
+    ctx.font = "15px Arial Red";
+    ctx.fillText("LOST", 250, 230);
+    ctx.font = "30px Arial Red";
+    ctx.fillText(hits2, 10, 230);
+    
+    hits1=0; hits2=0;
+    play = false; solai=0;
+    firsttime = true;
+
+    ctx.font = "25px Arial";
+    ctx.fillText("CLICK ANYWHERE", 40, 85);
+    ctx.fillText("IN THE BOARD", 60, 115);
+    ctx.fillText("TO RESTART", 80, 300);
 }
 function P2Won(){
-    alert("Yellow Won. Press OK to play again."); hits1=0; hits2=0; play = false; solai=0;
-                firsttime = true;
+    ctx.clearRect(0, 150, canvas.width/4, canvas.height/4);
+    ctx.fillStyle = '#ccc';
+    ctx.font = "15px Arial Red";
+    ctx.fillText("LOST", 250, 190);
+    ctx.font = "30px Arial Red";
+    ctx.fillText(hits1, 10, 190);
+
+    ctx.beginPath();
+    ctx.rect(0, canvas.height/2, canvas.width, 2);
+    ctx.fillStyle = "#777";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.fillStyle = '#ccc';
+    ctx.font = "15px Arial Red";
+    ctx.fillText("WON", 250, 230);
+    ctx.font = "30px Arial Red";
+    ctx.fillText(hits2, 10, 230);
+    
+    hits1=0; hits2=0;
+    play = false; solai=0;
+    firsttime = true;
+    
+    ctx.font = "25px Arial";
+    ctx.fillText("CLICK ANYWHERE", 40, 85);
+    ctx.fillText("IN THE BOARD", 60, 115);
+    ctx.fillText("TO RESTART", 80, 300);
 }
 function playButtonClicked() {
-                firsttime = false;
+    firsttime = false;
     if (solai!=0)
     interval = setInterval( draw, 7 );
     play = true;
     dx = 1; dy = 1;
-    document.querySelector( '.hits1' ).innerHTML = 0;
-    document.querySelector( '.hits2' ).innerHTML = 0;
 }
 function draw() {
     if(play==true){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLine();
-    drawPaddle(paddleX1, 0,"cyan");
-    drawPaddle(paddleX2, canvas.height - paddleWidth,"gold");
+    drawPaddle(paddleX1, 0,"#bbb");
+    drawPaddle(paddleX2, canvas.height - paddleWidth,"#bbb");
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -273,16 +314,16 @@ function draw() {
     if(hits1 > 5) P1Won();
     if(hits2 > 5) P2Won();
     if(downPressed1 && paddleX1 < canvas.width-paddleHeight) {
-        paddleX1 += 7;
+        paddleX1 += 5;
     }
     else if(upPressed1 && paddleX1 > 0) {
-        paddleX1 -= 7;
+        paddleX1 -= 5;
     }
     else if(downPressed2 && paddleX2 < canvas.width-paddleHeight) {
-        paddleX2 += 7;
+        paddleX2 += 5;
     }
     else if(upPressed2 && paddleX2 > 0) {
-        paddleX2 -= 7;
+        paddleX2 -= 5;
     }
     
     x += dx;
