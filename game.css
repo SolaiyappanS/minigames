@@ -240,18 +240,19 @@ transition-duration: 500ms;
     padding-right: 20%;
     padding-top: 5%;
     padding-bottom: 5%;
+    word-spacing: 30px;
 }
 .games a{
-    font-size:100px;
+    font-size:95px;
     height: 150px;
     color:#fffe;
+    background: #fff2;
     width: 150px;
     display: inline-block;
-    border-radius: 15%;
+    border-radius: 30%;
     transition: 250ms;
 }
 .games a:hover{
-    border-left: 0px;
     color: var(--accent-color-bgd);
     background: #fffd;
     transition: 250ms;

@@ -65,124 +65,73 @@
   
 </body>
 <script>
-
-
-var canv=document.getElementById("gc");
-
+ var canv=document.getElementById("gc");
 var ctx=canv.getContext("2d");
-
 document.addEventListener("keydown",keyPush);
 document.addEventListener("keyup",keyPull);
-
 var pushkey = false;
-
 setInterval(game,200);
-
 var px=10, py=10;
-
 var gs=15, tc=20;
-
 var ax=15, ay=15;
-
 var xv=0, yv=0;
-
 var trail=[];
-
 var tail = 3;
-
 document.querySelector( '.score' ).innerHTML = 0;
-
 var xaxis = true;
-
 var moving = true;
-
 function game() {
     if(moving){
-
         px+=xv;
-
         py+=yv;
-
         if(px<0) {
-
             px= tc-1;
-
         }
-
         if(px>tc-1) {
-
             px= 0;
-
         }
-
         if(py<0) {
-
             py= tc-1;
-
         }
-
         if(py>tc-1) {
-
             py= 0;
-
         }
-        ctx.fillStyle="#111";
-        ctx.fillRect(0,0,canv.width,canv.height);
-        ctx.fillStyle="cyan";
+        ctx.clearRect(0,0,canv.width,canv.height);
+        ctx.fillStyle="whitesmoke";
 
         for(var i=0;i<trail.length;i++) {
-
             ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
-
             if(trail[i].x==px && trail[i].y==py) {
-
                 tail = 3;addhit();
-
             }
-
         }
-
         trail.push({x:px,y:py});
-
         while(trail.length>tail) {
-
             trail.shift();
-
         }
-
-    
-
         if(ax==px && ay==py) {
-
             tail++;addhit();
-
             ax=Math.floor(Math.random()*tc);
-
             ay=Math.floor(Math.random()*tc);
-
         }
-
-        ctx.fillStyle="goldenrod";
-
+        ctx.fillStyle="gold";
         ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
-
     }
 }
-
 function keyPush(evt) {
 
 switch(evt.keyCode) {
 
-    case 37: {left(); pushkey = true;}
+    case 37: {pushkey = true;}
         break;
 
-    case 38: {up(); pushkey = true;}
+    case 38: {pushkey = true;}
         break;
 
-    case 39: {right(); pushkey = true;}
+    case 39: {pushkey = true;}
         break;
 
-    case 40: {down(); pushkey = true;}
+    case 40: {pushkey = true;}
         break;
 
 }
@@ -191,16 +140,16 @@ function keyPull(evt) {
 
 switch(evt.keyCode) {
 
-    case 37: pushkey = false;
+    case 37: {left(); pushkey = false;}
         break;
 
-    case 38: pushkey = false;
+    case 38: {up(); pushkey = false;}
         break;
 
-    case 39: pushkey = false;
+    case 39: {right(); pushkey = false;}
         break;
 
-    case 40: pushkey = false;
+    case 40: {down(); pushkey = false;}
         break;
 
 }
@@ -212,29 +161,29 @@ function pause(){
 function addhit(){
     document.querySelector( '.score' ).innerHTML = tail-3;
 }
-function up(){
-    if(!xaxis && moving && !pushkey){
+function up(){pushkey = true;
+    if(!xaxis && moving && pushkey){
         xv=0;yv=-1;
         xaxis = true;
-    }
+    }pushkey = false;
 }
-function down(){
-    if(!xaxis && moving && !pushkey){
+function down(){pushkey = true;
+    if(!xaxis && moving && pushkey){
         xv=0;yv=1;
         xaxis = true;
-    }
+    }pushkey = false;
 }
-function left(){
-    if(xaxis && moving && !pushkey){
+function left(){pushkey = true;
+    if(xaxis && moving && pushkey){
         xv=-1;yv=0;
         xaxis = false;
-    }
+    }pushkey = false;
 }
-function right(){
-    if(xaxis && moving && !pushkey){
+function right(){pushkey = true;
+    if(xaxis && moving && pushkey){
         xv=1;yv=0;
         xaxis = false;
-    }
+    }pushkey = false;
 }
 </script>
 <script src="../toggle.js"></script>
