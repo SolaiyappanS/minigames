@@ -16,11 +16,9 @@
     <div id = "home">
         <br>
     
-    <center><br><br>
+    <center><br>
         <canvas onclick="canvasclick()" id="myCanvas" width="300" height="400" ></canvas><br>
         <a onclick="buttonUp2()"><i class="fa fa-arrow-circle-left" style="font-size: 60px; color:#ccc"></i></a>
-        <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
-        <span class="hits2" style="font-size: 60px; color:#ccc">0</span>
         <i class="fa fa-arrow-circle-left" style="font-size:60px; visibility: hidden;"></i>
         <a onclick="buttonDown2()"><i class="fa fa-arrow-circle-right" style="font-size: 60px; color:#ccc"></i></a>
     </center>
@@ -76,11 +74,8 @@ var dy = -1;
 var paddleHeight = 65;
 var paddleWidth = 10;
 var paddleX2 = (canvas.width-paddleWidth)/2;
-var upPressed1 = false;
-var downPressed1 = false;
 var upPressed2 = false;
 var downPressed2 = false;
-var hits1 = 0;
 var hits2 = 0;
 var play;
 var solai = 1;
@@ -124,6 +119,10 @@ function drawPaddle(ddx,ddy,col) {
 }
 function drawLine() {
 
+    ctx.fillStyle = '#ccc';
+    ctx.font = "30px Arial Red";
+    ctx.fillText(hits2, 10, 230);
+
     ctx.beginPath();
     ctx.arc(canvas.width/2, canvas.height/2, canvas.width/4 - 7, 0, Math.PI*2);
     ctx.strokeStyle = "#777";
@@ -150,14 +149,13 @@ function drawLine() {
 
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "gold";
+    ctx.fillStyle = "#aaa";
     ctx.fill();
     ctx.closePath();
 
 }
 function addHit2() {
     hits2+= 1;
-    document.querySelector( '.hits2' ).innerHTML = hits2;
     if((hits2 >= 5)&&(hits2 %5 == 0)){
         if(dx<0) dx-=1;
         if(dx>0) dx+=1;
@@ -165,49 +163,45 @@ function addHit2() {
     }
 }
 function P2Won(){
-    alert("Your Score is "+hits2+". Press Ok to play again.");
     hits2=0; play = false; solai=0; 
     x = canvas.width/2;
     y = canvas.height/2;
     dx = -1;
     dy = -1;
     firsttime = true;
+
+    ctx.font = "25px Arial";
+    ctx.fillText("CLICK ANYWHERE", 40, 85);
+    ctx.fillText("IN THE BOARD", 60, 115);
+    ctx.fillText("TO REPLAY", 80, 300);
+    ctx.font = "15px Arial Red";
+    ctx.fillText("GAME OVER", 105, 230);
 }
 function playButtonClicked() {
     firsttime = false;
     if (solai!=0)
     interval = setInterval( draw, 10 );
     play = true;
-    document.querySelector( '.hits2' ).innerHTML = 0;
 }
 function canvasclick() {
     if (firsttime) playButtonClicked();
 }
 function startscreen(){
     if(firsttime && solai){
-    ctx.fillStyle = 'goldenrod';
+    ctx.fillStyle = '#ccc';
     ctx.font = "25px Arial";
     ctx.fillText("WELCOME TO", 65, 125);
     ctx.fillText("SINGLE PLAYER", 50, 158);
     ctx.fillText("PING PONG", 80, 191);
-    ctx.fillStyle = 'cyan';
-    ctx.font = "25px Arial";
     ctx.fillText("CLICK ANYWHERE", 40, 225);
     ctx.fillText("IN THE BOARD", 60, 258);
     ctx.fillText("TO START", 93, 291);
-} else if(firsttime){
-    ctx.fillStyle = 'goldenrod';
-    ctx.font = "25px Arial";
-    ctx.fillText("CLICK ANYWHERE", 40, 85);
-    ctx.fillText("IN THE BOARD", 60, 115);
-    ctx.fillStyle = 'cyan';
-    ctx.fillText("TO RESTART", 80, 300);
 }}
 function draw() {
     if(play==true){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLine();
-    drawPaddle(paddleX2, canvas.height - paddleWidth,"cyan");
+    drawPaddle(paddleX2, canvas.height - paddleWidth,"#bbb");
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
