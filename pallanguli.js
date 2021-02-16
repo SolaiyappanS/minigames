@@ -2,10 +2,11 @@ var homei = true;
 var abouti = false;
 var kuli = new Array(14);
 var begin = false;
+var canPress = false;
 var p1Amount = 0;
 var p2Amount = 0;
 var p1turn;
-var isOpen = false;
+var currentv;
 var interval;
 interval = setInterval(update);
 setAll(0);
@@ -42,11 +43,20 @@ function start() {
         p2Amount = 0;
         begin = true;
         p1turn = true;
-        isOpen = true;
+        canPress = true;
+        alert("It's player 1's turn. Select any one valid hole.");
     }
+    else if(!canPress) nextTurn();
+    else playerturn();
 }
 
-function excecute(v,amount){
+function playerturn(){
+    if(p1turn) alert("It's player 1's turn. Select any one valid hole.");
+    else alert("It's player 2's turn. Select any one valid hole.");
+}
+
+function excecute(v){
+    var amount = kuli[v];
     var v1;
     kuli[v]=0;
     for( var i=0; i<amount ; i++) { //Continuing excecution
@@ -54,58 +64,72 @@ function excecute(v,amount){
         v1%=14;
         kuli[v1]+=1;
     }
+    v = v + amount +1;
+    v %= 14;
+    currentv = v;
 }
 
 function empty(v){
     var v1= v+1;
     v1%=14;
-    if(p1turn) p1Amount += kuli[v1];
-    else p2Amount += kuli[v1];
+    if(p1turn) {p1Amount += kuli[v1]; if(kuli[v1]!=0) alert("Player 1 earns "+ kuli[v1] +" points.");
+    else alert("Player 1 earns no points in this turn.");
+    pasu();
+    alert("It's player 2's turn. Select any one valid hole.");}
+    else {p2Amount += kuli[v1]; if(kuli[v1]!=0) alert("Player 2 earns "+ kuli[v1] +" points.");
+    else alert("Player 2 earns no points in this turn.");
+    pasu();
+    alert("It's player 1's turn. Select any one valid hole.");}
     kuli[v1] = 0;
     p1turn = !p1turn;
-    isOpen = true;
+    isGameOver();
+    canPress = true;
+}
+
+function nextTurn(){
+    if (kuli[currentv] != 0) excecute(currentv);
+    else empty(currentv);
+}
+
+function pasu(){
+    var i = 0;
+    for(i=0 ; i<14 ; i++) { //Checking for Pasu
+        if(kuli[i]==4){
+            if(i<7) {p1Amount += 4; alert("Player 1 earns a Pasu.");}
+            else {p2Amount += 4; alert("Player 2 earns a Pasu.");}
+            kuli[i]=0;
+        }
+    }
 }
 
 function takethis(v) {
-    if((p1turn && v<7) || (!p1turn && v>=7 && v<14)){
-        if(isOpen && kuli[v] != 0){
-            isOpen = false;
-            var amount;
-
-            do{ amount = kuli[v];
-                excecute(v,amount);
-                v = v + amount +1;
-                v %= 14;
-            }while (kuli[v] != 0); //Checking whether Empty
-            empty(v);
-
-            var i = 0;
-            for(i=0 ; i<14 ; i++) { //Checking for Pasu
-                if(kuli[i]==4){
-                    if(i<7) p1Amount += 4;
-                    else p2Amount += 4;
-                    kuli[i]=0;
-                }
+    if(canPress){
+        if((p1turn && v<7) || (!p1turn && v>=7 && v<14)){
+            if(kuli[v] != 0){
+                canPress = false;
+                excecute(v);
+                isGameOver();
             }
-
-            for(i=0 ; kuli[i] == 0 && i<7 ; i++){ // checking allEmpty in first row
-                if(i==6) gameOver();
-            }
-
-            for(i=7 ; kuli[i] == 0 && i<14 ; i++){ // checking allEmpty in second row
-                if(i==13) gameOver();
-            }
+            else alert("Can't select zero. Select any other holes.")
         }
-        else alert("Can't select zero. Select any other holes.")
+        else alert("Do a valid move.");
     }
-    else alert("Do a valid move.");
+}
+
+function isGameOver(){
+    for(i=0 ; kuli[i] == 0 && i<7 ; i++){ // checking allEmpty in first row
+        if(i==6) gameOver();
+    }
+
+    for(i=7 ; kuli[i] == 0 && i<14 ; i++){ // checking allEmpty in second row
+        if(i==13) gameOver();
+    }
 }
 
 function gameOver(){
     if(p1Amount>p2Amount) alert("Player 1 wins. Press OK to play again.");
     else if(p2Amount>p1Amount) alert("Player 2 wins. Press OK to play again.");
     else alert("It's a Tie. Press OK to play again.");
-    setAll(0);
     begin = false;
 }
 
