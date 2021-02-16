@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="pallanguli.css">
+
+        <title>Pallanguli</title>
+    </head>
+    <body>
+        <br>
+        <center>
+        <div id="board">
+                <div id="play1">
+                    <span class ="kuli1" onclick="takethis(0);">0</span>
+                    <span class ="kuli2" onclick="takethis(1);">0</span>
+                    <span class ="kuli3" onclick="takethis(2);">0</span>
+                    <span class ="kuli4" onclick="takethis(3);">0</span>
+                    <span class ="kuli5" onclick="takethis(4);">0</span>
+                    <span class ="kuli6" onclick="takethis(5);">0</span>
+                    <span class ="kuli7" onclick="takethis(6);">0</span>
+                </div>
+
+                <div id="play">
+                    <p>P1 <span class ="kuli15" title ="player 1 Savings">0</span>
+                    <a onclick="start();"><i class="fas fa-play"></i></a>
+                    <span class ="kuli16" title ="player 2 Savings">0</span> P2</p>
+                </div>
+
+                <div id="play2">
+                    <span class ="kuli14" onclick="takethis(13);">0</span>
+                    <span class ="kuli13" onclick="takethis(12);">0</span>
+                    <span class ="kuli12" onclick="takethis(11);">0</span>
+                    <span class ="kuli11" onclick="takethis(10);">0</span>
+                    <span class ="kuli10" onclick="takethis(9);">0</span>
+                    <span class ="kuli9" onclick="takethis(8);">0</span>
+                    <span class ="kuli8" onclick="takethis(7);">0</span>
+                </div>
+            
+        </div>
+    </center>
+            
+        <div id = "about"> 
+            <br><h4 style="text-align: center;">About</h4>
+            <br><br><ul>
+                <li>Turn the device to landscape mode for better usage.</li>
+                <li>Start the game by pressing play button.</li>
+                <li>By default Player1 starts the game.</li>
+                <li>On your turn, you choose a non zero element of your portion.</li>
+                <li>If anyone's portion is empty, the game ends.</li>
+                <li>At the end, the guy with maximum points is the winner.</li></ul>
+        </div>
+                
+        <input type="checkbox" id="check">
+        <label for= "check">
+            <i class="fas fa-times" id="cancel"></i>
+            <i class="fas fa-bars" id="btn"></i>
+        </label>
+        <div class="sidebar">
+            <header>Pallanguzhi</header>
+            <a onclick="game()" id="homei" class="active">
+            <i class="fas fa-gamepad"></i>
+            <span>Game</span>
+            </a>
+            <a onclick="info()" id="abouti">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+            </a>
+        </div>
+    </body>
+    <script src="pallanguli.js"></script>
