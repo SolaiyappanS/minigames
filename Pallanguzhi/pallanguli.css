@@ -1,14 +1,15 @@
 body {
-    background-color: antiquewhite;
-    color: brown;
+    margin-top: 4vw;
+    background-color: oldlace;
+    color: sienna;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #board {
-    display: block;
     width: 90vw;
     font-size: 6.5vw;
-    border: 2px solid brown;
+    border: 0.5vw solid sienna;
+    background-color: saddlebrown;
 }
 
 #about {
@@ -21,24 +22,43 @@ ul{
     padding-right: 10%;
 }
 
-#play1, .kuli15 {
+.kuli1 {
     display: block;
-    color: khaki;
-    background-color: indianred;
-    height: 12vw;
+    color: oldlace;
+    background-color: peru;
+    border: 1vw solid saddlebrown;
+    height: 13vw;
+    border-radius: 2vw;
 }
 
-#play2, .kuli16 {
+.kuli2 {
     display: block;
-    color: indianred;
-    background-color: khaki;
-    height: 12vw;
+    color: oldlace;
+    background-color: chocolate;
+    border: 1vw solid saddlebrown;
+    height: 13vw;
+    border-radius: 2vw;
+}
+
+#play1 .kuli3 {
+    background-color: #fffa;
+    color: peru;
+}
+
+#play2 .kuli3 {
+    background-color: #fffa;
+    color: chocolate;
+}
+
+#play p span {
+    width: 24vw;
+    border-radius: 5vw;
+    display: inline-block;
 }
 
 #play {
     display: block;
-    color: brown;
-    word-spacing: 5vw;
+    color: oldlace;
     height: 12vw;
 }
 
@@ -49,19 +69,17 @@ ul{
     width: 10vw;
     height: 10vw;
     cursor: pointer;
-    border: 2px solid indianred;
+    border: 2px solid oldlace;
 }
 
-#play1 span:hover, #play2 span:hover {
-    background-color: #fed5;
+.previousv {
+    background-color: saddlebrown;
+    color: oldlace;
 }
 
-#play1 span {
-    border: 2px solid khaki;
-}
-
-#play2 span {
-    border: 2px solid indianred;
+.currentv {
+    background-color: sienna;
+    color: oldlace;
 }
 
 .fas {
@@ -69,151 +87,30 @@ ul{
     vertical-align: middle;
 }
 
-.sidebar{
-    position: fixed;
-    width: 240px;
-    left: -240px;
-    top:0;
-    height: 100%;
-    color: #fff;
-    background-color: #222;
-    transition: 250ms;
-    }
-    .sidebar header{
-    font-size: 40px;
-    color: #fff;
-    line-height: 70px;
-    text-align: center;
-    border-left: 5px solid var(--accent-color);
-    border-bottom: 3px solid #fff7;
-    background-image: linear-gradient(to left, var(--accent-color), var(--gradient-color));
-    user-select: none;
-    font-family: 'Lato', sans-serif;
-    transition: 250ms;
-    }
-    .sidebar a{
-    display: block;
-    height: 65px;
-    width: 100%;
-    color: #fff;
-    line-height: 65px;
-    padding-left: 30px;
-    box-sizing: border-box;
-    border-left: 5px solid transparent;
-    font-family: 'Lato', sans-serif;
-    transition: 250ms;
-    }
-    .sidebar a:hover{
-    border-left: 5px solid #222;
-    color: #fff;
-    background: linear-gradient(to left, #222, #022);
-    transition: 250ms;
-    cursor: pointer;
-    text-decoration: none;
-    }
-    .active{
-    cursor: pointer;
-    border-left: 5px solid #222;
-    color: #fff;
-    background: linear-gradient(to left, #222, #022);
-    transition: 250ms;
-    }
-    .sidebar a i{
-    font-size: 23px;
-    margin-right: 16px;
-    transition: 250ms;
-    }
-    .sidebar a span{
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: 250ms;
-    }
-    #check{
-    display: none;
-    }
-    label #btn,label #cancel{
-    position: fixed;
-    top: 10px;
-    left: 5px;
-    cursor: pointer;
-    color: #aaa;
-    border-radius: 5px;
-    margin: 15px 30px;
-    font-size: 29px;
-    background-color: #fff;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-        inset -7px -7px 10px 0px rgba(0,0,0,.1),
-    3.5px 3.5px 20px 0px rgba(0,0,0,.1),
-    2px 2px 5px 0px rgba(0,0,0,.1);
-    height: 45px;
-    width: 45px;
-    text-align: center;
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
-    line-height: 45px;
-    transition: 250ms;
-    }
-    label #cancel{
-    opacity: 0;
-    visibility: hidden;
-    }
-    #check:checked ~ .sidebar{
-    left: 0;
-    top: 0;
-    }
-    #check:checked ~ label #btn{
-    margin-left: 245px;
-    opacity: 0;
-    visibility: hidden;
-    }
-    #check:checked ~ label #cancel{
-    margin-left: 245px;
-    opacity: 1;
-    visibility: visible;
-    }
-    @media(max-width : 860px){
-    .sidebar{
-        height: auto;
-        width: 70px;
-        margin: 100px 0;
-        transition: 250ms;
-    }
-    header{
-        display: none;
-    }
-    .sidebar a span{
-        position: absolute;
-        margin-left: 23px;
-        opacity: 0;
-        visibility: hidden;
-        transition: 250ms;
-    }
-    .sidebar a{
-        height: 60px;
-        transition: 250ms;
-    }
-    .sidebar a i{
-        margin-left: -10px;
-        width: 10px;
-    }
-    a:hover {
-        width: 210px;
-        background: inherit;
-        transition: 250ms;
-    }
-    .sidebar a:hover span{
-        opacity: 1;
-        visibility: visible;
-        transition: 250ms;
-        text-decoration: none;
-    }
-    #check:checked ~ label #btn{
-    margin-left: 30px;
-    opacity: 0;
-    visibility: hidden;
-    }
-    #check:checked ~ label #cancel{
-    margin-left: 30px;
-    opacity: 1;
-    visibility: visible;
-    }
-    }
+#check{
+display: none;
+}
+
+label #btn,label #cancel{
+position: fixed;
+top: 0vw;
+left: 0vw;
+cursor: pointer;
+color: sienna;
+margin: 1vw;
+font-size: 3vw;
+}
+label #cancel{
+opacity: 0;
+visibility: hidden;
+}
+#check:checked ~ label #btn{
+margin-left: 1vw;
+opacity: 0;
+visibility: hidden;
+}
+#check:checked ~ label #cancel{
+margin-left: 1vw;
+opacity: 1;
+visibility: visible;
+}
