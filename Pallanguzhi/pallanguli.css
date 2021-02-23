@@ -1,15 +1,17 @@
 body {
-    margin-top: 4vw;
+    margin-top: 2vw;
     background-color: oldlace;
     color: sienna;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #board {
-    width: 90vw;
-    font-size: 6.5vw;
+    max-width: 45vw;
+    height:auto;
+    font-size: 4vw;
     border: 0.5vw solid sienna;
     background-color: saddlebrown;
+    color: oldlace;
 }
 
 #about {
@@ -17,26 +19,37 @@ body {
 }
 
 ul{
+    margin-top: 5vw;
     text-align: justify;
-    padding-left: 25%;
+    padding-left: 10%;
     padding-right: 10%;
 }
 
 .kuli1 {
     display: block;
-    color: oldlace;
     background-color: peru;
     border: 1vw solid saddlebrown;
-    height: 13vw;
     border-radius: 2vw;
+}
+
+.kuli1 span, .kuli2 span {
+    width:7vw;
+    margin-bottom: 1vw;
+    margin-top: 1vw;
+}
+
+.kuli1 p, .kuli2 p {
+    display: inline-block;
+    width: 24vw;
+    border-radius: 5vw;
+    height: 7vw;
+    border: 2px solid oldlace;
 }
 
 .kuli2 {
     display: block;
-    color: oldlace;
     background-color: chocolate;
     border: 1vw solid saddlebrown;
-    height: 13vw;
     border-radius: 2vw;
 }
 
@@ -50,36 +63,30 @@ ul{
     color: chocolate;
 }
 
-#play p span {
-    width: 24vw;
-    border-radius: 5vw;
-    display: inline-block;
-}
-
-#play {
-    display: block;
-    color: oldlace;
-    height: 12vw;
+.blocks{
+    background-color: #777;
+    color: #ccc;
 }
 
 #board span {
     border-radius: 50%;
     display: inline-block;
-    vertical-align: middle;
-    width: 10vw;
-    height: 10vw;
+    height: 7vw;
     cursor: pointer;
     border: 2px solid oldlace;
 }
 
+center #board a {
+    display: inline-block;
+    height: auto;
+}
+
 .previousv {
     background-color: saddlebrown;
-    color: oldlace;
 }
 
 .currentv {
     background-color: sienna;
-    color: oldlace;
 }
 
 .fas {
@@ -93,12 +100,12 @@ display: none;
 
 label #btn,label #cancel{
 position: fixed;
-top: 0vw;
-left: 0vw;
+top: 19vw;
+left: 8vw;
 cursor: pointer;
 color: sienna;
 margin: 1vw;
-font-size: 3vw;
+font-size: 10vw;
 }
 label #cancel{
 opacity: 0;
@@ -111,6 +118,28 @@ visibility: hidden;
 }
 #check:checked ~ label #cancel{
 margin-left: 1vw;
+left: 5vw;
+top: 5vw;
 opacity: 1;
+font-size: 5vw;
 visibility: visible;
+position: relative;
+}
+
+#check:checked ~ #playbutton{
+    visibility: hidden;
+}
+
+#playbutton {
+    position: fixed;
+    top: 18vw;
+    right: 8vw;
+    cursor: pointer;
+    margin: 1vw;
+    font-size: 10vw;
+}
+
+h4 {
+    text-align: center;
+    font-size: 5vw;
 }
