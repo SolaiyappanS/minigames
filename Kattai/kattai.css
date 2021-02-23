@@ -1,0 +1,37 @@
+body {
+    background-color: antiquewhite;
+    color: chocolate
+}
+
+#board {
+    margin-top: 7vh;
+    min-height: 93vh;
+}
+
+td {
+    height: 33.5vmin;
+    width: 33vmin;
+    text-align: center;
+}
+.square {
+    width: 100vmin;
+    height: 100vmin;
+    background-image: url('kattai.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.fab {
+    visibility: hidden;
+}
+.fas {
+    color: goldenrod;
+    background-color: antiquewhite;
+    border-radius: 50%;
+    font-size: 10vmin;
+}
+.far {
+    color: antiquewhite;
+    background-color: #566;
+    border-radius: 50%;
+    font-size: 10vmin;
+}
