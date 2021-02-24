@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="oddoreven.css">
+
+        <title>Pallanguzhi - பல்லாங்குழி</title>
+    </head>
+    <body>
+        <center>
+            <div id="board" class="board">
+                <div class="square" >
+                    <table>
+                        <tr>
+                            <td colspan="2"><input type="number" max=10 min=0 step=1 id="numberInput"></td>
+                        </tr>
+                        <tr>
+                            <th><a onclick="select(1)" id="odd">odd</a></th>
+                            <th><a onclick="select(0)" id="even">even</a></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </center>
+    </body>
+    <script src="oddoreven.js"></script>
+</html>
