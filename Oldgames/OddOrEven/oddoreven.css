@@ -4,38 +4,44 @@ body {
 }
 
 #board {
-    margin-top: 7vh;
-    min-height: 93vh;
+    margin-top: 20vh;
 }
 .square {
     width: 100vmin;
-    height: 100vmin;
+    height: 60vmin;
     background-image: url('kattai.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    align-items: middle;
 }
-
-#numberInput {
+table {
+    display: inline-block;
+    vertical-align: middle;
+}
+#numberInput, #information {
     outline: none;
     border: 1px solid rgba(250, 235, 215, 0.8);
-    background-color: rgba(139, 69, 19, 0.7);
-    width: 60vmin;
+    background-color: rgba(139, 69, 19, 0.5);
     height: 20vmin;
+    width: 90vmin;
     border-radius: 3vmin;
     display: inline-block;
     text-align: center;
     font-size: 13vmin;
     color: antiquewhite;
 }
-th {
+#odd, #even {
     outline: none;
     border: 1px solid rgba(250, 235, 215, 0.8);
-    background-color: rgba(139, 69, 19, 0.7);
-    width: 30vmin;
-    height: 20vmin;
+    background-color: rgba(139, 69, 19, 0.5);
+    width: 45vmin;
+    height: 24vmin;
     border-radius: 3vmin;
     display: inline-block;
     text-align: center;
-    font-size: 13vmin;
+    font-size: 15vmin;
     color: antiquewhite;
+}
+#odd :hover, #even :hover {
+    cursor: pointer;
 }

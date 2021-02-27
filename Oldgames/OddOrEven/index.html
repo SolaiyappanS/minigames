@@ -9,7 +9,7 @@
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <link rel="stylesheet" href="oddoreven.css">
 
-        <title>Pallanguzhi - பல்லாங்குழி</title>
+        <title>Odd or Even</title>
     </head>
     <body>
         <center>
@@ -17,11 +17,14 @@
                 <div class="square" >
                     <table>
                         <tr>
-                            <td colspan="2"><input type="number" max=10 min=0 step=1 id="numberInput"></td>
+                            <td colspan="2"><span id="information"></span></td>
                         </tr>
                         <tr>
-                            <th><a onclick="select(1)" id="odd">odd</a></th>
-                            <th><a onclick="select(0)" id="even">even</a></th>
+                            <td colspan="2"><input type="number" onchange="valuee()" max=10 min=0 step=1 id="numberInput"></td>
+                        </tr>
+                        <tr>
+                            <th><a onclick="select(1)" id="odd">ODD</a></th>
+                            <th><a onclick="select(0)" id="even">EVEN</a></th>
                         </tr>
                     </table>
                 </div>
